@@ -11,13 +11,16 @@ public class CaesarEncrypterImpl implements CaesarEncrypter {
             char c = (char)(message.charAt(x) + shift);
             // Add shift to the character and if it falls off the end of the alphabet then subtract shift from the number of letters in the alphabet (26)
             // If the shift does not make the character fall off the end of the alphabet, then add the shift to the character.
-            if (c > 'z')
+            if (c > 'z'){
                 messageEncrypted += (char)(message.charAt(x) - (26-shift));
-            else
+            } else if ((char)(message.charAt(x)) == ' ') {
+                // detected a space, so dont shift the space
+                messageEncrypted += (char)(message.charAt(x));
+            } else {
                 messageEncrypted += (char)(message.charAt(x) + shift);
+            }
         }
 
-        // spaces becomes $, remove it first
-        return messageEncrypted.replace("$", " ");
+        return messageEncrypted;
     }
 }
